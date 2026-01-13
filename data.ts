@@ -74,128 +74,359 @@ export const preQuizOptions = [
   { text: "شعرت بالراحة والدفء تجاهها", category: 'Human' },
 ] as const;
 
-export const questions: Question[] = [
+// --- Domain Specific Question Sets ---
+
+const techQuestions: Question[] = [
   {
-    id: 1,
-    text: "عندما تواجه مشكلة معقدة، ما هي خطوتك الأولى؟",
+    id: 101,
+    text: "عندما يواجهك 'خطأ برمجي' (Bug) أو عطل تقني، ما هو رد فعلك الأول؟",
     options: [
-      { text: "أبحث عن البيانات والحقائق المتاحة", category: "Logic" },
-      { text: "أرسم خريطة ذهنية أو تصوراً للحل", category: "Creative" },
-      { text: "أستشير الأشخاص المتأثرين بالمشكلة", category: "Human" },
-      { text: "أقسم المشكلة إلى خطوات إجرائية صغيرة", category: "Systems" }
+      { text: "أبحث في السجلات (Logs) وأحلل الكود سطرًا بسطر", category: "Logic" },
+      { text: "أجرب حلولاً مبتكرة أو التفافية لإصلاح الأمر", category: "Creative" },
+      { text: "أسأل الزملاء أو أبحث في المنتديات التقنية", category: "Human" },
+      { text: "أراجع بنية النظام للتأكد من عدم تكرار الخطأ", category: "Systems" }
     ]
   },
   {
-    id: 2,
-    text: "ما هو النشاط الذي يجعلك تفقد الإحساس بالوقت؟",
+    id: 102,
+    text: "ما هو الجانب الأكثر إثارة في التقنية بالنسبة لك؟",
     options: [
-      { text: "حل الألغاز أو الألعاب الاستراتيجية", category: "Logic" },
-      { text: "التصميم، الرسم، أو الكتابة", category: "Creative" },
-      { text: "الاستماع لمشاكل الأصدقاء ومساعدتهم", category: "Human" },
-      { text: "ترتيب غرفتي أو تنظيم ملفاتي", category: "Systems" }
+      { text: "كيفية معالجة البيانات الضخمة والخوارزميات", category: "Logic" },
+      { text: "تصميم واجهات مذهلة وتفاعلات بصرية", category: "Creative" },
+      { text: "كيف تسهل التقنية حياة الناس وتواصلهم", category: "Human" },
+      { text: "بناء أنظمة سحابية (Cloud) معقدة ومترابطة", category: "Systems" }
     ]
   },
   {
-    id: 3,
-    text: "في العمل الجماعي، ما هو الدور المفضل لك؟",
+    id: 103,
+    text: "لو طُلب منك بناء تطبيق جديد، من أين تبدأ؟",
     options: [
-      { text: "الناقد الذي يحلل نقاط الضعف", category: "Logic" },
-      { text: "صاحب الأفكار الجديدة والمجنونة", category: "Creative" },
-      { text: "المسؤول عن راحة الفريق وتواصلهم", category: "Human" },
-      { text: "المنسق الذي يضع الجدول الزمني", category: "Systems" }
+      { text: "دراسة الجدوى والتحليل المنطقي للمتطلبات", category: "Logic" },
+      { text: "رسم 'Sketch' للشاشات وتخيل التجربة", category: "Creative" },
+      { text: "فهم احتياجات المستخدمين ومشاكلهم الحقيقية", category: "Human" },
+      { text: "تخطيط قاعدة البيانات وهيكلة الخوادم", category: "Systems" }
     ]
   },
   {
-    id: 4,
-    text: "ما نوع الكتب أو المحتوى الذي يثير اهتمامك؟",
+    id: 104,
+    text: "ما هي بيئة العمل التقنية المثالية لك؟",
     options: [
-      { text: "العلوم، الاقتصاد، والتحقيقات", category: "Logic" },
-      { text: "الفنون، الروايات الخيالية، والتصميم", category: "Creative" },
-      { text: "علم النفس، السير الذاتية، والمجتمع", category: "Human" },
-      { text: "الهندسة، إدارة الأعمال، وكيف تعمل الأشياء", category: "Systems" }
+      { text: "مختبر أبحاث أو بيئة تعتمد على الدقة والحقائق", category: "Logic" },
+      { text: "ستوديو تصميم مفتوح يشجع على الإلهام", category: "Creative" },
+      { text: "فريق عمل متعاون ومرح وموجه للمجتمع", category: "Human" },
+      { text: "شركة مؤسسية ذات إجراءات وهياكل واضحة", category: "Systems" }
     ]
   },
   {
-    id: 5,
-    text: "كيف تفضل تعلم مهارة جديدة؟",
+    id: 105,
+    text: "كيف تتعلم تقنية جديدة؟",
     options: [
-      { text: "قراءة النظريات وفهم المبادئ أولاً", category: "Logic" },
-      { text: "التجربة الحرة والمحاولة والخطأ", category: "Creative" },
-      { text: "التعلم من خلال معلم أو مجموعة دراسة", category: "Human" },
-      { text: "اتباع دليل إرشادي خطوة بخطوة", category: "Systems" }
+      { text: "قراءة الوثائق الرسمية (Documentation) بعمق", category: "Logic" },
+      { text: "بناء مشروع تجريبي ممتع فوراً", category: "Creative" },
+      { text: "مشاهدة شروحات (Tutorials) من أشخاص أثق بهم", category: "Human" },
+      { text: "فهم المعمارية (Architecture) والمبادئ الأساسية", category: "Systems" }
     ]
   },
   {
-    id: 6,
-    text: "ما هو الشيء الذي يزعجك أكثر في بيئة العمل؟",
+    id: 106,
+    text: "ما رأيك في الذكاء الاصطناعي؟",
     options: [
-      { text: "القرارات غير المنطقية أو العشوائية", category: "Logic" },
-      { text: "الروتين القاتل وغياب التجديد", category: "Creative" },
-      { text: "الصراعات الشخصية والبيئة السامة", category: "Human" },
-      { text: "الفوضى وعدم وضوح المسؤوليات", category: "Systems" }
+      { text: "أداة رائعة لتحليل البيانات وحل المعضلات", category: "Logic" },
+      { text: "شريك في توليد الصور والأفكار الإبداعية", category: "Creative" },
+      { text: "تحدي أخلاقي يجب ضبطه لخدمة البشر", category: "Human" },
+      { text: "نظام معقد يحتاج إلى ضبط وهندسة دقيقة", category: "Systems" }
     ]
   },
   {
-    id: 7,
-    text: "إذا طلب منك تنظيم حفلة، ماذا ستفعل؟",
+    id: 107,
+    text: "في هاكاثون (مسابقة تقنية)، ما هو دورك؟",
     options: [
-      { text: "أحسب الميزانية واحتياجات الحضور بدقة", category: "Logic" },
-      { text: "أركز على الديكور والموسيقى والتجربة", category: "Creative" },
-      { text: "أتأكد من دعوة الجميع والترحيب بهم", category: "Human" },
-      { text: "أضع جدولاً زمنياً للفقرات وقائمة مهام", category: "Systems" }
+      { text: "حل المشاكل المستعصية في الكود", category: "Logic" },
+      { text: "تصميم العرض التقديمي وشكل المنتج", category: "Creative" },
+      { text: "عرض الفكرة وإقناع الحكام (Pitching)", category: "Human" },
+      { text: "إدارة المستودع (Git) ودمج الأكواد", category: "Systems" }
     ]
   },
   {
-    id: 8,
-    text: "ما هي القيمة الأهم بالنسبة لك؟",
+    id: 108,
+    text: "ما هو هدفك المهني الأسمى في المجال الرقمي؟",
     options: [
-      { text: "الحقيقة والموضوعية", category: "Logic" },
-      { text: "الجمال والتعبير عن الذات", category: "Creative" },
-      { text: "التعاطف ومساعدة الآخرين", category: "Human" },
-      { text: "الكفاءة والإنجاز", category: "Systems" }
-    ]
-  },
-  {
-    id: 9,
-    text: "كيف تصف غرفتك أو مساحتك الخاصة؟",
-    options: [
-      { text: "عملية وتحتوي على ما أحتاجه فقط", category: "Logic" },
-      { text: "مليئة بالألوان واللوحات والأشياء الغريبة", category: "Creative" },
-      { text: "مريحة، دافئة، وتستقبل الضيوف", category: "Human" },
-      { text: "مرتبة جداً، كل شيء له مكانه", category: "Systems" }
-    ]
-  },
-  {
-    id: 10,
-    text: "عند شراء هاتف جديد، ما الذي يهمك؟",
-    options: [
-      { text: "المواصفات التقنية والأداء مقابل السعر", category: "Logic" },
-      { text: "تصميم الجهاز وجودة الشاشة والكاميرا", category: "Creative" },
-      { text: "سهولة التواصل عبر التطبيقات الاجتماعية", category: "Human" },
-      { text: "نظام التشغيل وتوافق التطبيقات والإنتاجية", category: "Systems" }
-    ]
-  },
-  {
-    id: 11,
-    text: "ما هو نوع الألعاب المفضل لديك؟",
-    options: [
-      { text: "ألعاب الشطرنج والتحقيق", category: "Logic" },
-      { text: "ألعاب العالم المفتوح والبناء", category: "Creative" },
-      { text: "الألعاب الجماعية والتعاونية", category: "Human" },
-      { text: "ألعاب إدارة الموارد والاستراتيجية", category: "Systems" }
-    ]
-  },
-  {
-    id: 12,
-    text: "في نهاية يوم شاق، ماذا تفعل؟",
-    options: [
-      { text: "أحلل ما حدث وأخطط للغد", category: "Logic" },
-      { text: "أشاهد فيلماً ملهماً أو أرسم", category: "Creative" },
-      { text: "أتحدث مع صديق مقرب", category: "Human" },
-      { text: "أرتب أفكاري وأنجز مهمة بسيطة مؤجلة", category: "Systems" }
+      { text: "الوصول إلى الحقيقة والمعرفة الدقيقة", category: "Logic" },
+      { text: "خلق شيء لم يره أحد من قبل", category: "Creative" },
+      { text: "تحسين جودة حياة الملايين", category: "Human" },
+      { text: "بناء بنية تحتية رقمية تدوم لسنوات", category: "Systems" }
     ]
   }
 ];
+
+const artQuestions: Question[] = [
+  {
+    id: 201,
+    text: "عندما تمسك القلم أو تفتح برنامج التصميم، ما الذي يحركك؟",
+    options: [
+      { text: "النسب الذهبية وقواعد التكوين الصحيحة", category: "Logic" },
+      { text: "شعور غامض أو فكرة مجنونة أريد تجسيدها", category: "Creative" },
+      { text: "رغبة في إيصال رسالة تؤثر في الناس", category: "Human" },
+      { text: "ترتيب العناصر في نظام بصري متقن", category: "Systems" }
+    ]
+  },
+  {
+    id: 202,
+    text: "كيف تتعامل مع 'قلفة المبدع' (Art Block)؟",
+    options: [
+      { text: "أحلل أعمال فنانين آخرين لأفهم تقنياتهم", category: "Logic" },
+      { text: "أخربش بعشوائية حتى يظهر شيء جديد", category: "Creative" },
+      { text: "أخرج لمقابلة الناس واستمد الإلهام منهم", category: "Human" },
+      { text: "أرتب مرسمي وأدواتي وأضع جدولاً للرسم", category: "Systems" }
+    ]
+  },
+  {
+    id: 203,
+    text: "ما هو نوع الفن الذي يستهويك؟",
+    options: [
+      { text: "الفن المفاهيمي الذي يحتاج لتفكير وتفسير", category: "Logic" },
+      { text: "الفن التجريدي المليء بالألوان والعاطفة", category: "Creative" },
+      { text: "البورتريهات التي تعكس قصص البشر", category: "Human" },
+      { text: "التصميم الهندسي والزخارف الإسلامية", category: "Systems" }
+    ]
+  },
+  {
+    id: 204,
+    text: "في مشروع فيلم أو أنيميشن، أي دور تفضل؟",
+    options: [
+      { text: "كاتب السيناريو والحبكة المنطقية", category: "Logic" },
+      { text: "مخرج فني يحدد الألوان والجو العام", category: "Creative" },
+      { text: "تصميم الشخصيات وتعابير وجوههم", category: "Human" },
+      { text: "إدارة الإنتاج وتوزيع المهام (Pipeline)", category: "Systems" }
+    ]
+  },
+  {
+    id: 205,
+    text: "كيف تقيس نجاح عملك الفني؟",
+    options: [
+      { text: "إذا كان متقناً تقنياً وخالياً من الأخطاء", category: "Logic" },
+      { text: "إذا كان فريداً ومختلفاً عن السائد", category: "Creative" },
+      { text: "إذا أثار مشاعر الجمهور وتفاعلوا معه", category: "Human" },
+      { text: "إذا كان متناسقاً ويخدم الغرض منه", category: "Systems" }
+    ]
+  },
+  {
+    id: 206,
+    text: "ما هي أدواتك المفضلة؟",
+    options: [
+      { text: "أدوات القياس الدقيقة والبرامج المعقدة", category: "Logic" },
+      { text: "أي شيء يمكنه صنع علامة (فرشاة، فحم..)", category: "Creative" },
+      { text: "القصص والكلمات والمشاعر", category: "Human" },
+      { text: "أنظمة الشبكات (Grids) وقوالب التصميم", category: "Systems" }
+    ]
+  },
+  {
+    id: 207,
+    text: "عند نقد عمل فني، على ماذا تركز؟",
+    options: [
+      { text: "المنظور والتشريح والضوء", category: "Logic" },
+      { text: "الإبداع والخروج عن المألوف", category: "Creative" },
+      { text: "الصدق الفني والرسالة", category: "Human" },
+      { text: "التوازن والتناغم في العناصر", category: "Systems" }
+    ]
+  },
+  {
+    id: 208,
+    text: "الرسم والكتابة بالنسبة لك هما:",
+    options: [
+      { text: "علم له قواعد يجب دراستها", category: "Logic" },
+      { text: "حرية مطلقة", category: "Creative" },
+      { text: "لغة تواصل عالمية", category: "Human" },
+      { text: "عملية بناء وتراكم خبرات", category: "Systems" }
+    ]
+  }
+];
+
+const structureQuestions: Question[] = [
+  {
+    id: 301,
+    text: "عندما ترى مبنى ضخماً، ما أول ما يلفت انتباهك؟",
+    options: [
+      { text: "كيف يقف؟ (الفيزياء والأحمال)", category: "Logic" },
+      { text: "جمال الواجهة وتفرد التصميم", category: "Creative" },
+      { text: "كيف يعيش الناس بداخله ويستخدمونه", category: "Human" },
+      { text: "تكامل الأنظمة (الكهرباء، التكييف، الهيكل)", category: "Systems" }
+    ]
+  },
+  {
+    id: 302,
+    text: "الجسم البشري أو المبنى المعماري يشتركان في:",
+    options: [
+      { text: "أنهما يعملان وفق قوانين علمية دقيقة", category: "Logic" },
+      { text: "جمال التكوين والإبداع في الخلق", category: "Creative" },
+      { text: "احتواء الحياة والروح", category: "Human" },
+      { text: "تعقيد الهيكل والترابط بين الأجزاء", category: "Systems" }
+    ]
+  },
+  {
+    id: 303,
+    text: "في مشروع بحثي أو هندسي، كيف تعمل؟",
+    options: [
+      { text: "أجمع البيانات وأحلل النتائج مخبرياً", category: "Logic" },
+      { text: "أبحث عن حلول غير تقليدية للمشاكل", category: "Creative" },
+      { text: "أفكر في أثر هذا المشروع على البشرية", category: "Human" },
+      { text: "أضع خطة منهجية وأتبع البروتوكولات", category: "Systems" }
+    ]
+  },
+  {
+    id: 304,
+    text: "ما الذي يجعلك تثق في معلومة علمية؟",
+    options: [
+      { text: "الأرقام والإحصائيات والدراسات", category: "Logic" },
+      { text: "إذا كانت تشرح ظاهرة معقدة ببساطة وجمال", category: "Creative" },
+      { text: "إذا كانت تحسن صحة أو حياة شخص ما", category: "Human" },
+      { text: "إذا كانت تتسق مع النظريات والقوانين المعروفة", category: "Systems" }
+    ]
+  },
+  {
+    id: 305,
+    text: "لو كنت مسؤولاً عن تخطيط مدينة، ماذا ستفعل؟",
+    options: [
+      { text: "أحلل حركة المرور والكثافة السكانية", category: "Logic" },
+      { text: "أصمم معالم أيقونية تدهش الزوار", category: "Creative" },
+      { text: "أكثر من الحدائق والأماكن العامة للقاء الناس", category: "Human" },
+      { text: "أصمم شبكة مواصلات وبنية تحتية فعالة", category: "Systems" }
+    ]
+  },
+  {
+    id: 306,
+    text: "ما هو الجانب المفضل لديك في العلوم/الهندسة؟",
+    options: [
+      { text: "اكتشاف الحقائق المجردة", category: "Logic" },
+      { text: "الابتكار والاختراع", category: "Creative" },
+      { text: "الطب والعلاج والرعاية", category: "Human" },
+      { text: "التنظيم والتصنيف والبناء", category: "Systems" }
+    ]
+  },
+  {
+    id: 307,
+    text: "عند حل مشكلة هيكلية (في الجسم أو البناء):",
+    options: [
+      { text: "أشخص السبب الجذري بدقة", category: "Logic" },
+      { text: "أتخيل كيف يجب أن يكون الشكل المثالي", category: "Creative" },
+      { text: "أخفف الألم أو الضرر عن المتأثرين", category: "Human" },
+      { text: "أعيد بناء الجزء المتضرر ليكون أقوى", category: "Systems" }
+    ]
+  },
+  {
+    id: 308,
+    text: "النظام المثالي هو:",
+    options: [
+      { text: "المنطقي والخالي من التناقضات", category: "Logic" },
+      { text: "المرن والقابل للتطور", category: "Creative" },
+      { text: "العادل والمراعي للجميع", category: "Human" },
+      { text: "الفعال والمستدام ذاتياً", category: "Systems" }
+    ]
+  }
+];
+
+const humanQuestions: Question[] = [
+  {
+    id: 401,
+    text: "عندما تختار وردة 'إنسانية'، فهذا يعني أنك تهتم بـ:",
+    options: [
+      { text: "تحليل سلوك البشر ودوافعهم", category: "Logic" },
+      { text: "التعبير عن مشاعر البشر بالفن", category: "Creative" },
+      { text: "مساعدة البشر والتعاطف معهم", category: "Human" },
+      { text: "تنظيم المجتمعات والقوانين", category: "Systems" }
+    ]
+  },
+  {
+    id: 402,
+    text: "صديقك يمر بأزمة، ماذا تفعل؟",
+    options: [
+      { text: "أساعده في تحليل المشكلة وإيجاد حل", category: "Logic" },
+      { text: "أخذه في نزهة أو أصنع له شيئاً يبهجه", category: "Creative" },
+      { text: "أستمع له وأحتويه عاطفياً", category: "Human" },
+      { text: "أساعده في ترتيب أموره وجدوله", category: "Systems" }
+    ]
+  },
+  {
+    id: 403,
+    text: "التعليم المثالي في نظرك يعتمد على:",
+    options: [
+      { text: "تنمية التفكير النقدي والبحثي", category: "Logic" },
+      { text: "تنمية الخيال والمواهب الفردية", category: "Creative" },
+      { text: "القيم والأخلاق والتعاون", category: "Human" },
+      { text: "المناهج المنظمة والتقييم المستمر", category: "Systems" }
+    ]
+  },
+  {
+    id: 404,
+    text: "في العمل التطوعي، تفضل:",
+    options: [
+      { text: "التخطيط المالي ودراسة الاحتياجات", category: "Logic" },
+      { text: "تصميم الحملات الإعلانية للتبرع", category: "Creative" },
+      { text: "النزول للميدان والتعامل مع المحتاجين", category: "Human" },
+      { text: "إدارة المتطوعين وتوزيع المهام", category: "Systems" }
+    ]
+  },
+  {
+    id: 405,
+    text: "ما هي القوة الخارقة التي تتمناها؟",
+    options: [
+      { text: "قراءة الأفكار والمعرفة المطلقة", category: "Logic" },
+      { text: "الخلق وتشكيل الواقع", category: "Creative" },
+      { text: "الشفاء ونشر السلام", category: "Human" },
+      { text: "التحكم في الزمن والترتيب", category: "Systems" }
+    ]
+  },
+  {
+    id: 406,
+    text: "النقاشات والحوارات بالنسبة لك:",
+    options: [
+      { text: "فرصة لتبادل المعلومات وتصحيح المفاهيم", category: "Logic" },
+      { text: "مساحة لتوليد أفكار جديدة", category: "Creative" },
+      { text: "وسيلة للتقارب وفهم الآخر", category: "Human" },
+      { text: "طريقة للوصول لاتفاق أو نظام مشترك", category: "Systems" }
+    ]
+  },
+  {
+    id: 407,
+    text: "عندما تقرأ قصة، ما يشدك؟",
+    options: [
+      { text: "حبكة القصة ومنطقية الأحداث", category: "Logic" },
+      { text: "وصف الأماكن والأسلوب الأدبي", category: "Creative" },
+      { text: "تطور الشخصيات وعلاقاتهم", category: "Human" },
+      { text: "بناء العالم وقوانينه الخاصة", category: "Systems" }
+    ]
+  },
+  {
+    id: 408,
+    text: "السعادة الحقيقية تكمن في:",
+    options: [
+      { text: "الفهم والاكتشاف", category: "Logic" },
+      { text: "الإبداع والجمال", category: "Creative" },
+      { text: "الحب والعطاء", category: "Human" },
+      { text: "الاستقرار والإنجاز", category: "Systems" }
+    ]
+  }
+];
+
+// Helper to select questions based on flower
+export const getQuestionsForFlower = (flowerId: string): Question[] => {
+  switch (flowerId) {
+    case 'digital':
+    case 'data':
+      return techQuestions;
+    case 'lineart':
+    case 'motion':
+    case 'ink':
+      return artQuestions;
+    case 'anatomy':
+    case 'architect':
+      return structureQuestions;
+    case 'human':
+      return humanQuestions;
+    default:
+      return techQuestions; // Fallback
+  }
+};
 
 export const recommendations: Recommendation[] = [
   {

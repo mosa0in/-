@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Flower, Question, Category } from '../types';
-import { questions, preQuizOptions } from '../data';
+import { preQuizOptions } from '../data';
 
 interface QuizProps {
   selectedFlower: Flower;
+  questions: Question[]; // Accept specific questions for this flower
   onFinish: (answers: number[], preQuizCategory: Category) => void;
   onBack: () => void;
 }
 
-const Quiz: React.FC<QuizProps> = ({ selectedFlower, onFinish, onBack }) => {
+const Quiz: React.FC<QuizProps> = ({ selectedFlower, questions, onFinish, onBack }) => {
   const [showPreQuiz, setShowPreQuiz] = useState(true);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
@@ -77,8 +78,11 @@ const Quiz: React.FC<QuizProps> = ({ selectedFlower, onFinish, onBack }) => {
   }
 
   // --- Main Quiz View ---
-  const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
   const currentQuestion: Question = questions[currentQuestionIndex];
+  // Safety check
+  if (!currentQuestion) return null;
+
+  const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   return (
     <div className="max-w-3xl mx-auto py-8 px-4 min-h-screen flex flex-col">

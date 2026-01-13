@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import FlowerGallery from './components/FlowerGallery';
 import Quiz from './components/Quiz';
 import Results from './components/Results';
 import ChatBot from './components/ChatBot';
 import { AppPhase, Flower, Scores, Category } from './types';
-import { flowers, questions } from './data';
+import { flowers, getQuestionsForFlower } from './data';
 
 function App() {
   // Initialize state from LocalStorage if available
@@ -20,6 +20,12 @@ function App() {
     const saved = localStorage.getItem('quiz_scores');
     return saved ? JSON.parse(saved) : { Logic: 0, Creative: 0, Human: 0, Systems: 0 };
   });
+
+  // Get specific questions for the selected flower
+  const currentQuestions = useMemo(() => {
+    if (!selectedFlowerId) return [];
+    return getQuestionsForFlower(selectedFlowerId);
+  }, [selectedFlowerId]);
 
   // Persist state changes
   useEffect(() => {
@@ -59,7 +65,7 @@ function App() {
 
     // 2. Add Main Quiz Scores
     answers.forEach((optionIndex, questionIndex) => {
-      const question = questions[questionIndex];
+      const question = currentQuestions[questionIndex];
       // Safety check in case answers array mismatch
       if (question && question.options[optionIndex]) {
         const selectedOption = question.options[optionIndex];
@@ -101,7 +107,8 @@ function App() {
 
         {phase === 'quiz' && selectedFlowerId && (
           <Quiz 
-            selectedFlower={getSelectedFlower()} 
+            selectedFlower={getSelectedFlower()}
+            questions={currentQuestions}
             onFinish={calculateResults}
             onBack={() => setPhase('gallery')}
           />
